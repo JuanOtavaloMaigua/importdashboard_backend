@@ -26,63 +26,60 @@ function getKey(header, callback) {
 
 const verifyToken = async (request, context, next) => {
     const authHeader = request.headers.get('x-custom-header')
-    // context.log('authHeader: ', authHeader)
-    // if (!authHeader) {
-    //     return {
-    //         status: 401,
-    //         message: 'Authorization header missing'
-    //     }
-    // }
-    // const token = authHeader.split(' ')[1];
+    if (!authHeader) {
+        return {
+            status: 401,
+            message: 'Authorization header missing'
+        }
+    }
+    const token = authHeader.split(' ')[1];
 
-    // // context.log('getKey: ', getKey())
+    if (!token) {
+        return {
+            status: 401,
+            message: 'Token missing'
+        }
+    }
 
-    // if (!token) {
-    //     return {
-    //         status: 401,
-    //         message: 'Token missing'
-    //     }
-    // }
-
-    // try{
-    //     const verifyJWT = await new Promise((resolve, reject) => {
-    //         jwt.verify(
-    //           token,
-    //           getKey,
-    //           {
-    //             audience: process.env.AUTH0_API_AUDIENCE,
-    //             issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-    //             algorithms: ["RS256"],
-    //             complete: true
-    //           },
-    //           (err, decoded) => {
-    //             if (err) reject(err);
-    //             else resolve(decoded);
-    //           }
-    //         );
-    //       }).then((result)=>{
-    //         return {decoded: result}
-    //       }).catch((error)=>{  
-    //         return {error}
-    //       });
+    try{
+        const verifyJWT = await new Promise((resolve, reject) => {
+            jwt.verify(
+              token,
+              getKey,
+              {
+                audience: process.env.AUTH0_API_AUDIENCE,
+                issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+                algorithms: ["RS256"],
+                complete: true
+              },
+              (err, decoded) => {
+                if (err) reject(err);
+                else resolve(decoded);
+              }
+            );
+          }).then((result)=>{
+            return {decoded: result}
+          }).catch((error)=>{  
+            return {error}
+          });
         
-    //     if(verifyJWT['error']){
-    //         return {
-    //             status: 500,
-    //             body: JSON.stringify(verifyJWT['error'])
-    //         }
-    //     }
-    //     context.user = verifyJWT['decoded']
-    // }catch(error){
-    //     context.log('error: ', error)
-    // }
+        if(verifyJWT['error']){
+            return {
+                status: 500,
+                body: JSON.stringify(verifyJWT['error'])
+            }
+        }
+        context.user = verifyJWT['decoded']
+    }catch(error){
+        context.log('error: ', error)
+    }
 
     return next();
 };
 
 const mainHandler = async (req, context) => {
-    // const userId = context.user
-    // context.log('---userId: ', userId)
+    const userId = context.user
+    context.log('---userId: ', userId)
 
     // const userInfo = context.user
     // const allRoles = userInfo[`${process.env.AUTH0_API_AUDIENCE}/claims/roles`]
