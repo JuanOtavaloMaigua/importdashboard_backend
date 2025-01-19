@@ -82,21 +82,12 @@ const mainHandler = async (req, context) => {
     // context.log('---userId: ', userId)
 
     const userInfo = context.user
-    const allRoles = userInfo[`${process.env.AUTH0_API_AUDIENCE}/claims/roles`]
-    const allPermissions = userInfo['permissions']
+    const allRoles = userInfo?.payload[`${process.env.AUTH0_API_AUDIENCE}/claims/roles`]
+    const allPermissions = userInfo?.payload.permissions
 
-    // console.log('user ifno: ', userInfo)
+    context.log('all roles: ', allRoles)
+    context.log('all permissions: ', allPermissions)
 
-    // context.log('allRoles: ', allRoles)
-    // context.log('all permissions: ', allPermissions)
-    // const authHeader = req.headers.authorization || req.headers['Authorization'] || '';
-
-    // const authHeader = req.headers
-    const authHeader = req.headers.get('x-custom-header');
-
-    context.log('x-custom-header: ', authHeader)
-
-    // return {status: 200, body: JSON.stringify(authHeader)}
     return {status: 200, body: JSON.stringify({allRoles, allPermissions})};
 };
 
