@@ -76,4 +76,11 @@ const verifyToken = async (request, context, next) => {
     return next();
 };
 
+function checkPermissions(requiredPermissions) {
+    const userInfo = context.user
+    const allPermissions = userInfo?.payload.permissions
+
+    
+}
+
 export { verifyToken };
