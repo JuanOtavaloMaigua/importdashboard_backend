@@ -78,12 +78,12 @@ const verifyToken = async (request, context, next) => {
 };
 
 const mainHandler = async (req, context) => {
-    const userId = context.user
-    context.log('---userId: ', userId)
+    // const userId = context.user
+    // context.log('---userId: ', userId)
 
-    // const userInfo = context.user
-    // const allRoles = userInfo[`${process.env.AUTH0_API_AUDIENCE}/claims/roles`]
-    // const allPermissions = userInfo['permissions']
+    const userInfo = context.user
+    const allRoles = userInfo[`${process.env.AUTH0_API_AUDIENCE}/claims/roles`]
+    const allPermissions = userInfo['permissions']
 
     // console.log('user ifno: ', userInfo)
 
@@ -96,8 +96,8 @@ const mainHandler = async (req, context) => {
 
     context.log('x-custom-header: ', authHeader)
 
-    return {status: 200, body: JSON.stringify(authHeader)}
-    // return {status: 200, body: JSON.stringify({allRoles, allPermissions})};
+    // return {status: 200, body: JSON.stringify(authHeader)}
+    return {status: 200, body: JSON.stringify({allRoles, allPermissions})};
 };
 
 const withMiddleware = (...middlewares) => (request, context) => {
