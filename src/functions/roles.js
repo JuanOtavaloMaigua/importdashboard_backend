@@ -25,7 +25,7 @@ const withMiddleware = (...middlewares) => (request, context) => {
 
 
 app.http('roles', {
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'OPTIONS'],
     authLevel: 'anonymous',
     handler: withMiddleware(verifyToken)
 });

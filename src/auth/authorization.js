@@ -24,7 +24,7 @@ function getKey(header, callback) {
 }
 
 const verifyToken = async (request, context, next) => {
-    const authHeader = request.headers.get('x-custom-header')
+    const authHeader = request.headers.get('x-api-header')
     if (!authHeader) {
         return {
             status: 401,
