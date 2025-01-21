@@ -1,6 +1,4 @@
-// const { app } = require('@azure/functions');
 import { app } from '@azure/functions';
-import axios from 'axios';
 import { config } from 'dotenv';
 import { verifyToken } from '../auth/authorization.js';
 
