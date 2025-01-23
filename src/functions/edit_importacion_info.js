@@ -11,7 +11,7 @@ const mainHandler = async (request, context) => {
     const userId = params.userId;
     const bodyData = await request.json();
     context.log('bodyData: ', bodyData);    
-    let { infoData={}, collectionId = 0 } = bodyData;
+    let { infoData={}, documentId = 0 } = bodyData;
 
     try {
         const collection = db.collection("compras");
@@ -28,18 +28,18 @@ const mainHandler = async (request, context) => {
 
         let result;
         
-        if (!collectionId) {
+        if (!documentId) {
             // Create new document with next collectionId
-            const lastCollectionId = await collection.find()
+            const lastDocumentId = await collection.find()
                 .sort({'documentId': -1})
                 .limit(1)
                 .toArray();
             
-            collectionId = lastCollectionId.length > 0 ? lastCollectionId[0].collectionId + 1 : 1;
+            documentId = lastDocumentId.length > 0 ? lastDocumentId[0].documentId + 1 : 1;
 
             const newDocument = {
                 importacionInfo: infoData,
-                collectionId: collectionId,
+                documentId: documentId,
                 userId: userId,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -47,13 +47,13 @@ const mainHandler = async (request, context) => {
 
             result = await collection.insertOne(newDocument);
             
-            context.log('Created new document with collectionId:', collectionId);
+            context.log('Created new document with collectionId:', docuemntId);
             
             return {
                 status: 201,
                 jsonBody: {
                     message: "Document created successfully",
-                    collectionId: collectionId,
+                    collectionId: documentId,
                     documentId: result.insertedId
                 }
             };
@@ -61,7 +61,7 @@ const mainHandler = async (request, context) => {
             // Update existing document
             const updateResult = await collection.findOneAndUpdate(
                 { 
-                    collectionId: collectionId,
+                    documentId: documentId,
                     userId: userId  // Ensure user owns the document
                 },
                 {
@@ -86,13 +86,13 @@ const mainHandler = async (request, context) => {
                 };
             }
 
-            context.log('Updated document with collectionId:', collectionId);
+            context.log('Updated document with collectionId:', documentId);
             
             return {
                 status: 200,
                 jsonBody: {
                     message: "Document updated successfully",
-                    collectionId: collectionId,
+                    collectionId: documentId,
                     document: updateResult.value
                 }
             };
