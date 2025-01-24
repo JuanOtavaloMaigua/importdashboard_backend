@@ -47,7 +47,7 @@ const mainHandler = async (request, context) => {
 
             result = await collection.insertOne(newDocument);
             
-            context.log('Created new document with collectionId:', docuemntId);
+            context.log('Created new document with collectionId:', documentId);
             
             return {
                 status: 201,
