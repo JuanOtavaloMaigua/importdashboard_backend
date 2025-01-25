@@ -21,7 +21,7 @@ const mainHandler = async (request, context) => {
             return {
                 status: 400,
                 body: JSON.stringify({
-                    "error": "infoData is required"
+                    "error": "infoData es requirido"
                 })
             };
         }
@@ -52,7 +52,7 @@ const mainHandler = async (request, context) => {
             return {
                 status: 201,
                 jsonBody: {
-                    message: "Document created successfully",
+                    message: "Datos actualizados correctamente",
                     collectionId: documentId,
                     documentId: result.insertedId
                 }
@@ -81,7 +81,7 @@ const mainHandler = async (request, context) => {
                 return {
                     status: 404,
                     jsonBody: {
-                        error: "Document not found or unauthorized"
+                        error: "Documento no autorizado o no encontrado"
                     }
                 };
             }
@@ -91,7 +91,7 @@ const mainHandler = async (request, context) => {
             return {
                 status: 200,
                 jsonBody: {
-                    message: "Document updated successfully",
+                    message: "Datos actualizados correctamente",
                     collectionId: documentId,
                     document: updateResult.value
                 }
@@ -102,7 +102,7 @@ const mainHandler = async (request, context) => {
         return {
             status: 500,
             jsonBody: {
-                error: "Internal server error",
+                error: "Error interno del servidor",
                 message: error.message
             }
         };
