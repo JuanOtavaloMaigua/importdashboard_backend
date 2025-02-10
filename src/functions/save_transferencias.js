@@ -54,7 +54,7 @@ const mainHandler = async (request, context)=>{
                 status: 201,
                 jsonBody: {
                     message: "Datos actualizados correctamente",
-                    // collectionId: 1,
+                    documentId: currentDocumentId,
                     documentId: result.insertedId
                 }
             };
@@ -83,7 +83,7 @@ const mainHandler = async (request, context)=>{
                 status: 200,
                 jsonBody: {
                     message: "Datos actualizados correctamente",
-                    collectionId: documentId,
+                    documentId: documentId,
                     document: updateResult.value
                 }
             };
@@ -111,7 +111,7 @@ const mainHandler = async (request, context)=>{
                 status: 200,
                 jsonBody: {
                     message: "Datos actualizados correctamente",
-                    collectionId: documentId,
+                    documentId: documentId,
                     document: updateResult.value
                 }
             };
