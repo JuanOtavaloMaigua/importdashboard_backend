@@ -22,54 +22,45 @@ const mainHandler = async (request, context) => {
 
     try {
 
-        const lineas = await fetch(`${perseoApiUrl}productos_lineas_consulta`, requestOptions)
-        const lineasJson = await lineas.json()
+        // const lineas = await fetch(`${perseoApiUrl}productos_lineas_consulta`, requestOptions)
+        // const lineasJson = await lineas.json()
 
-        const categorias = await fetch(`${perseoApiUrl}productos_categorias_consulta`, requestOptions)
-        const categoriasJson = await categorias.json()
+        // const categorias = await fetch(`${perseoApiUrl}productos_categorias_consulta`, requestOptions)
+        // const categoriasJson = await categorias.json()
 
-        const subcategorias = await fetch(`${perseoApiUrl}productos_subcategorias_consulta`, requestOptions)
-        const subcategoriasJson = await subcategorias.json()
-        // productos_subgrupos_consulta
+        // const subcategorias = await fetch(`${perseoApiUrl}productos_subcategorias_consulta`, requestOptions)
+        // const subcategoriasJson = await subcategorias.json()
+        // // productos_subgrupos_consulta
 
-        const subgrupos = await fetch(`${perseoApiUrl}productos_subgrupos_consulta`, requestOptions)
-        const subgruposJson = await subgrupos.json()
+        // const subgrupos = await fetch(`${perseoApiUrl}productos_subgrupos_consulta`, requestOptions)
+        // const subgruposJson = await subgrupos.json()
 
-        // medidas_consulta
-        const medidas = await fetch(`${perseoApiUrl}medidas_consulta`, requestOptions)
-        const medidasJson = await medidas.json()
+        // // medidas_consulta
+        // const medidas = await fetch(`${perseoApiUrl}medidas_consulta`, requestOptions)
+        // const medidasJson = await medidas.json()
 
-        // context.log('lineas json: ', lineasJson)
 
         const response = await fetch(`${perseoApiUrl}productos_consulta`, requestOptions)
         const data = await response.json()
         const productos = data["productos"][0]
 
-        const productos_lineasid = productos["productos_lineasid"]
-        const productos_categoriasid = productos["productos_categoriasid"]
-        const productos_subcategoriasid = productos["productos_subcategoriasid"]
-        const productos_subgruposid = productos["productos_subgruposid"]
-        const unidadinterna = productos["unidadinterna"]
+        // const productos_lineasid = productos["productos_lineasid"]
+        // const productos_categoriasid = productos["productos_categoriasid"]
+        // const productos_subcategoriasid = productos["productos_subcategoriasid"]
+        // const productos_subgruposid = productos["productos_subgruposid"]
+        // const unidadinterna = productos["unidadinterna"]
 
-        const lineasDescripcion = lineasJson["lineas"].find((lineaObj)=> lineaObj["productos_lineasid"] === productos_lineasid)?.descripcion
-        const categoriaDescripcion = categoriasJson["categorias"].find((categoriaObj)=> categoriaObj["productos_categoriasid"] === productos_categoriasid)?.descripcion
-        const subcategoriaDescripcion = subcategoriasJson["subcategorias"].find((subcategoriaObj)=> subcategoriaObj["productos_subcategoriasid"] === productos_subcategoriasid)?.descripcion
-        const subgrupoDescripcion = subgruposJson["subgrupo"].find((subgrupoObj)=> subgrupoObj["productos_subgruposid"] === productos_subgruposid)?.descripcion
-        const unidadInternaDescripcion = medidasJson["medidas"].find((medidaObj)=> medidaObj["medidasid"] === unidadinterna)?.descripcion
+        // const lineasDescripcion = lineasJson["lineas"].find((lineaObj)=> lineaObj["productos_lineasid"] === productos_lineasid)?.descripcion
+        // const categoriaDescripcion = categoriasJson["categorias"].find((categoriaObj)=> categoriaObj["productos_categoriasid"] === productos_categoriasid)?.descripcion
+        // const subcategoriaDescripcion = subcategoriasJson["subcategorias"].find((subcategoriaObj)=> subcategoriaObj["productos_subcategoriasid"] === productos_subcategoriasid)?.descripcion
+        // const subgrupoDescripcion = subgruposJson["subgrupo"].find((subgrupoObj)=> subgrupoObj["productos_subgruposid"] === productos_subgruposid)?.descripcion
+        // const unidadInternaDescripcion = medidasJson["medidas"].find((medidaObj)=> medidaObj["medidasid"] === unidadinterna)?.descripcion
 
-        // const newProducts = {}
-        productos["productos_lineasid"] = lineasDescripcion
-        productos["productos_categoriasid"] = categoriaDescripcion
-        productos["productos_subcategoriasid"] = subcategoriaDescripcion
-        productos["productos_subgruposid"] = subgrupoDescripcion
-        productos["unidadinterna"] = unidadInternaDescripcion
-        // newProducts["barras"] = productos["barras"]
-        // newProducts["descripcion"] = productos["descripcion"]
-        // newProducts["existenciastotales"] = productos["existenciastotales"]
-        // newProducts["tarifas"] = productos["tarifas"]
-
-        // context.log('productos: ')
-        // context.log(newProducts)
+        // productos["productos_lineasid"] = lineasDescripcion
+        // productos["productos_categoriasid"] = categoriaDescripcion
+        // productos["productos_subcategoriasid"] = subcategoriaDescripcion
+        // productos["productos_subgruposid"] = subgrupoDescripcion
+        // productos["unidadinterna"] = unidadInternaDescripcion
         
         return {
             status: 200,

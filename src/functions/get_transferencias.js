@@ -39,7 +39,7 @@ const mainHandler = async (request, context)=>{
             return {
                 status: 200,
                 jsonBody: {
-                    message: "No hay datos",
+                    message: "Ingrese Datos",
                     tableData: []
                 }
             }
