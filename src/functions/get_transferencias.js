@@ -29,11 +29,8 @@ const mainHandler = async (request, context)=>{
                 projection: { tableData: 1, _id: 0 }  // Only return the documentId field
             }
         );
-        // const document = await collection.find({ userId: userId })
-        // .sort({ documentId: -1 })  // Sort by documentId in descending order
-        // .toArray();
 
-        context.log('document: ', document)
+        context.log('document transferencias: ', document)
 
         if(!document){
             return {
@@ -54,8 +51,6 @@ const mainHandler = async (request, context)=>{
                 }
             }
         }
-
-
 
     }catch(error){
         return {
