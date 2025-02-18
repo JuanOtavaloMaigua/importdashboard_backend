@@ -10,6 +10,8 @@ const mainHandler = async (request, context) => {
     const params = request.params;
     const userId = params.userId;
 
+    context.log('params: ', params)
+
     try {
         const collection = db.collection("ventas");
         if (!userId) {
